@@ -1,0 +1,1 @@
+Pasta com os exercícios do Farrer em C.
