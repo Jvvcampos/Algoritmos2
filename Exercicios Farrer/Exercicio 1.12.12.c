@@ -1,3 +1,27 @@
+/*
+1.12.12. O sistema de avaliação de uma determinada disciplina obedece aos seguintes critérios:
+* Durante o semestre são dadas três notas;
+* A nota final é obtida pela média aritmética das notas dadas durante o curso;
+* É considerado aprovado o aluno que obtiver a nota final superior ou igual a 60 e que
+tiver comparecido a um mínimo de 40 aulas.
+Fazer um algoritmo que:
+
+a) Leia um conjunto de dados contendo o número de matrícula, as três notas e a frequência
+(número de aulas frequentadas) de 100 alunos.
+b) Calcule:
+* a nota final de cada aluno;
+* a maior e menor nota da turma;
+* a nota média da turma;
+* o total de alunos reprovados; 
+* a porcentagem de alunos reprovados por infrequência;
+c) Escreva:
+* para cada aluno, o número de matrícula, a frequência, a nota final e o código
+(aprovado ou reprovado);
+* o que foi calculado no item b (2,3,4 e 5)
+
+*/
+
+
 #include <stdio.h>
 int main()
 {
