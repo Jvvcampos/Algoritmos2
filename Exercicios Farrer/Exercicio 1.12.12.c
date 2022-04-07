@@ -18,9 +18,7 @@ c) Escreva:
 * para cada aluno, o número de matrícula, a frequência, a nota final e o código
 (aprovado ou reprovado);
 * O que foi calculado no item b (2,3,4 e 5)
-
 */
-
 
 #include <stdio.h>
 int main()
