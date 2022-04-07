@@ -9,15 +9,15 @@ Fazer um algoritmo que:
 a) Leia um conjunto de dados contendo o número de matrícula, as três notas e a frequência
 (número de aulas frequentadas) de 100 alunos.
 b) Calcule:
-* a nota final de cada aluno;
-* a maior e menor nota da turma;
-* a nota média da turma;
-* o total de alunos reprovados; 
-* a porcentagem de alunos reprovados por infrequência;
+* A nota final de cada aluno;
+* A maior e menor nota da turma;
+* A nota média da turma;
+* O total de alunos reprovados; 
+* A porcentagem de alunos reprovados por infrequência;
 c) Escreva:
 * para cada aluno, o número de matrícula, a frequência, a nota final e o código
 (aprovado ou reprovado);
-* o que foi calculado no item b (2,3,4 e 5)
+* O que foi calculado no item b (2,3,4 e 5)
 
 */
 
@@ -25,67 +25,67 @@ c) Escreva:
 #include <stdio.h>
 int main()
 {
-    int contrep = 0, totalrepro, reprofreq;
-    float matricula[100], nota1[100], nota2[100], nota3[100], frequencia[100], notaFinal[100];
+    int cont_rep = 0, total_repro, repro_freq;
+    float matricula[99], nota1[99], nota2[99], nota3[99], frequencia[99], notaFinal[99];
     float maiorNota, menorNota, contadorNota = 0, mediaTurma, preprofreq;
 
     printf("Entrada de Dados:");
-    while (contrep < 100)//vai ler 100x
+    while (cont_rep < 100)//vai ler 100x
     {
-        printf("\nNumero da matricula do aluno %d: ", contrep+1);
-        scanf("%f", &matricula[contrep]);
-        printf("\nNota 1 do aluno %d: ", contrep+1);
-        scanf("%f", &nota1[contrep]);
-        printf("\nNota 2 do aluno %d: ", contrep+1);
-        scanf("%f", &nota2[contrep]);
-        printf("\nNota 3 do aluno %d: ", contrep+1);
-        scanf("%f", &nota3[contrep]);
-        printf("\nNumero de aulas que o aluno %d assistiu: ", contrep+1);
-        scanf("%f", &frequencia[contrep]);
+        printf("\nNumero da matricula do aluno %d: ", cont_rep+1);
+        scanf("%f", &matricula[cont_rep]);
+        printf("\nNota 1 do aluno %d: ", cont_rep+1);
+        scanf("%f", &nota1[cont_rep]);
+        printf("\nNota 2 do aluno %d: ", cont_rep+1);
+        scanf("%f", &nota2[cont_rep]);
+        printf("\nNota 3 do aluno %d: ", cont_rep+1);
+        scanf("%f", &nota3[cont_rep]);
+        printf("\nNumero de aulas que o aluno %d assistiu: ", cont_rep+1);
+        scanf("%f", &frequencia[cont_rep]);
 
-        notaFinal[contrep] = (nota1[contrep] + nota2[contrep] + nota3[contrep]) / 3;
-        contadorNota += notaFinal[contrep];
-        contrep+=1;
+        notaFinal[cont_rep] = (nota1[cont_rep] + nota2[cont_rep] + nota3[cont_rep]) / 3;
+        contadorNota += notaFinal[cont_rep];
+        cont_rep+=1;
     }
     mediaTurma = contadorNota / 3;
     maiorNota = menorNota = notaFinal[0];
 
-    contrep = 0;
-    while (contrep < 100)
+    cont_rep = 0;
+    while (cont_rep < 100)
     {
-        if (notaFinal[contrep] > maiorNota)
+        if (notaFinal[cont_rep] > maiorNota)
         {
-            maiorNota = notaFinal[contrep];
+            maiorNota = notaFinal[cont_rep];
         }
-        if (menorNota > notaFinal[contrep])
+        if (menorNota > notaFinal[cont_rep])
         {
-            menorNota = notaFinal[contrep];
+            menorNota = notaFinal[cont_rep];
         }
 
-        printf("\nNumero da matricula do aluno %d e %.0f: ", contrep+1, matricula[contrep]);
-        printf("\nNumero de aulas que o aluno %d assistiu e %.2f ", contrep+1, frequencia[contrep]);
-        printf("\nNota final do aluno %d e %.2f \n", contrep+1, notaFinal[contrep]);
-        if (notaFinal[contrep] >= 60 && frequencia[contrep] >= 40)
+        printf("\nNumero da matricula do aluno %d e %.0f: ", cont_rep+1, matricula[cont_rep]);
+        printf("\nNumero de aulas que o aluno %d assistiu e %.2f ", cont_rep+1, frequencia[cont_rep]);
+        printf("\nNota final do aluno %d e %.2f \n", cont_rep+1, notaFinal[cont_rep]);
+        if (notaFinal[cont_rep] >= 60 && frequencia[cont_rep] >= 40)
         {
             printf("\nAluno Aprovado!");
         }
-        else if (notaFinal[contrep] >= 60 && frequencia[contrep] < 40)
+        else if (notaFinal[cont_rep] >= 60 && frequencia[cont_rep] < 40)
         {
             printf("\nAluno Reprovado!");
-            totalrepro+=1;
-            reprofreq+=1;
+            total_repro+=1;
+            repro_freq+=1;
         }
         else
         {
             printf("\nAluno Reprovado!");
-            totalrepro+=1;
+            total_repro+=1;
         }
     }
 
     printf("\nMaior nota: %.2f", maiorNota);
     printf("\nMenor nota: %.2f", menorNota);
     printf("\nMédia da turma: %.2f", mediaTurma);
-    printf("\nTotal de alunos reprovados: %d", totalrepro);
-    printf("\nPorcentagem de Alunos reprovados por infrequência: %d%%", reprofreq);//Cada aluno reprovado vai equivaler a 1% dos 100 alunos.
+    printf("\nTotal de alunos reprovados: %d", total_repro);
+    printf("\nPorcentagem de Alunos reprovados por infrequência: %d%%", repro_freq);//Cada aluno reprovado vai equivaler a 1% dos 100 alunos.
     return 0;
 }
