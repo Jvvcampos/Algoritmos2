@@ -42,7 +42,7 @@ int main()
             break;
         }
         else if(vetor[cont]<0){//Exigência de valores positivos
-            printf("Digite um valor positivo!");
+            printf("Digite um valor positivo!\n");
             cont-=1;
         }
         fim+=1;
