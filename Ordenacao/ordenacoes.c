@@ -66,8 +66,39 @@ int ordenacao_bubble(int cont)//Função Bubble Sort
     return 0;
 }
 
-int ordenacao_quick()//Função Quick Sort
+int ordenacao_quick(int vetor[], int ini, int fim)//Função Quick Sort
 {
+    int pivo = 0, i, j, aux = 0;
+    i = ini;
+    j = fim - 1;
+    pivo = vetor[(ini+fim)/2];
+    while(i <= j)
+    {
+        while(vetor[i] < pivo && i < fim)
+        {
+            i+=1;
+        }
+        while(vetor[j] > pivo && j > ini)
+        {
+            j-=1;
+        }
+        if(i <= j)
+        {
+            aux = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = aux;
+            i+=1;
+            j-=1;
+        }
+        if(j > ini)
+        {
+            ordenacao_quick(vetor, ini, j+1);
+        }
+        if(i < fim)
+        {
+            ordenacao_quick(vetor, i, fim);
+        }
+    }
     return 0;
 }
 
@@ -136,7 +167,7 @@ int main()
         }
         case 4://Quick Sort
         {
-            ordenacao_quick();
+            ordenacao_quick(vetor, 0, cont);
             break;
         }
         case 5://Merge Sort
