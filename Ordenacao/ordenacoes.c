@@ -8,8 +8,8 @@ Iremos utilizar os métodos: Insertion Sort, Selection Sort, BubbleSort, QuickSo
 #include <time.h>
 #include <math.h>
 
-int vetor[9999];
-int cont_insertion = 0, cont_selection = 0, cont_bubble = 0, cont_quick = 0, cont_merge = 0;
+int vetor[10000];
+int cont_insertion = 0, cont_selection = 0, cont_bubble = 0, cont_quick = 0;
 
 int ordenacao_insertion(int cont)//Função Insertion Sort
 {
@@ -102,11 +102,6 @@ int ordenacao_quick(int vetor[], int ini, int fim)//Função Quick Sort
     return 0;
 }
 
-int ordenacao_merge()//Função Merge Sort
-{
-    return 0;
-}
-
 int main()
 {
     int cont = 0, opcao;
@@ -127,7 +122,7 @@ int main()
         }
         cont+=1;
     }
-    printf("Vetor antes da ordenação:\n");
+    printf("\nVetor antes da ordenação:\n");
     printf("{");
     for(int i = 0; i < cont; i++)
     {
@@ -135,7 +130,7 @@ int main()
     }
     printf("}\n");
     int selecao = 0;
-    printf("Selecione o método de ordenação do vetor!\n1 - Insertion Sort, 2 - Selection Sort, 3 - BubbleSort, 4 - QuickSort e 5 - MergeSort.\n");
+    printf("Selecione o método de ordenação do vetor!\n1 - Insertion Sort, 2 - Selection Sort, 3 - BubbleSort e 4 - QuickSort\n\n");
 
     while(selecao == 0)
     {
@@ -143,7 +138,7 @@ int main()
         selecao+=1;
         if(opcao == 0)
         {
-            printf("Digite um dos valores solicitados!\n");
+            printf("Digite um dos valores solicitados!\n\n");
             selecao = 0;
         }
     }
@@ -170,18 +165,13 @@ int main()
             ordenacao_quick(vetor, 0, cont);
             break;
         }
-        case 5://Merge Sort
-        {
-            ordenacao_merge();
-            break;
-        }
     }
     //Saida de dados
-    printf("Vetor depois de ordenado!\n");
+    printf("\nVetor depois de ordenado!\n");
     printf("{");
     for(int i = 0; i < cont; i++)
     {
-        printf("%d ", vetor[i]);
+        printf(" %d ", vetor[i]);
     }
     printf("}\n");
 
