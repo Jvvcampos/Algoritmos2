@@ -1,11 +1,14 @@
 #include <stdio.h>
+#include <string.h>
 
 #define JOGADOR_X 'X';
 #define JOGADOR_O 'O';
 #define VAZIO '_'
 
 void abertura() {
-    printf("Bem-Vindo ao Jogo!\n");
+    printf("**************************\n");
+    printf("*** Bem-Vindo ao Jogo! ***\n");
+    printf("**************************\n\n");
     printf("Usaremos como referencia a seguinte matriz:\n");
 
     for(int i=1; i<=9; i++){
@@ -14,6 +17,8 @@ void abertura() {
             printf("\n");
         }
     }
+
+    printf("\n\nLembrando que quem for jogar com X, vai jogar primeiro, tudo bem?\n");
 }
 
 int main() {
@@ -28,58 +33,101 @@ int main() {
                 tabuleiro[linha][coluna] = VAZIO;
             }
     }
+    char nome_um[40];
+    printf("\n\nEae, qual o nome de quem vai querer jogar com o X?\n");
+    fgets(nome_um, 40, stdin);
+    char nome_dois[40];
+    printf("\n\nBeleza! Quem vai jogar com o O?\n");
+    fgets(nome_dois, 40, stdin);
 
-    while(1) {
+    while(cont < 9) {
 
         char jogador_atual;
         int base = cont % 2 == 0;
+        int ganhador[40];
 
         if(base == 1) {
             jogador_atual = JOGADOR_X;
+            strcpy(ganhador, nome_um);
         } else {
             jogador_atual = JOGADOR_O;
+            strcpy(ganhador, nome_dois);
         }
 
         int posicao;
-        printf("\n\nEscolha uma posicao para marcar: ");
+        printf("\n\n\nMarque um %c, %s", jogador_atual, ganhador);
+        printf("\nEscolha uma posicao para marcar: ");
         scanf(" %d", &posicao);
 
         printf("\n\n");
-        if(posicao == 1) {
-            tabuleiro[0][0] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 2) {
-            tabuleiro[0][1] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 3) {
-            tabuleiro[0][2] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 4) {
-            tabuleiro[1][0] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 5) {
-            tabuleiro[1][1] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 6) {
-            tabuleiro[1][2] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 7) {
-            tabuleiro[2][0] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 8) {
-            tabuleiro[2][1] = jogador_atual;
-            printf(" %c", jogador_atual);
-        }
-        else if(posicao == 9) {
-            tabuleiro[2][2] = jogador_atual;
-            printf(" %c", jogador_atual);
+        switch (posicao)
+        {
+        case 1:
+            if(tabuleiro[0][0] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else {tabuleiro[0][0] = jogador_atual;}
+            break;
+        
+        case 2:
+            if(tabuleiro[0][1] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[0][1] = jogador_atual;}
+            break;
+        
+        case 3:
+            if(tabuleiro[0][2] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[0][2] = jogador_atual;}
+            break;
+        
+        case 4:
+            if(tabuleiro[1][0] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[1][0] = jogador_atual;}
+            break;
+        
+        case 5:
+            if(tabuleiro[1][1] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[1][1] = jogador_atual;}
+            break;
+        
+        case 6:
+            if(tabuleiro[1][2] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[1][2] = jogador_atual;}
+            break;
+        
+        case 7:
+            if(tabuleiro[2][0] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[2][0] = jogador_atual;}
+            break;
+        
+        case 8:
+            if(tabuleiro[2][1] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[2][1] = jogador_atual;}
+            break;
+        
+        case 9:
+            if(tabuleiro[2][2] != VAZIO) {
+                printf("\nValor ja digitado!\n");
+                continue;
+            }else{tabuleiro[2][2] = jogador_atual;}
+            break;
+        
+        default:
+            printf("\nValor invalido!");
+            continue;
         }
 
         printf("\n\n");
@@ -95,6 +143,38 @@ int main() {
                 }
             }
         }
+
+        if(cont >= 4) {//começa a verificar quem ganhou depois da quarta jogada
+            if(tabuleiro[0][0] != VAZIO && tabuleiro[0][0] == tabuleiro[0][1] && tabuleiro[0][0] == tabuleiro[0][2]) {//primeira linha
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[1][0] != VAZIO && tabuleiro[1][0] == tabuleiro[1][1] && tabuleiro[1][0] == tabuleiro[1][2]){//segunda linha
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[2][0] != VAZIO && tabuleiro[2][0] == tabuleiro[2][1] && tabuleiro[2][0] == tabuleiro[2][2]){//terceira linha
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[0][0] != VAZIO && tabuleiro[0][0] == tabuleiro[1][0] && tabuleiro[0][0] == tabuleiro[2][0]){//primeira coluna
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[0][1] != VAZIO && tabuleiro[0][1] == tabuleiro[1][1] && tabuleiro[0][1] == tabuleiro[2][1]){//segunda coluna
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[0][2] != VAZIO && tabuleiro[0][2] == tabuleiro[1][2] && tabuleiro[0][2] == tabuleiro[2][2]){//terceira coluna
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[0][0] != VAZIO && tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[0][0] == tabuleiro[2][2]){//diagonal principal
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }else if(tabuleiro[0][2] != VAZIO && tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[0][2] == tabuleiro[2][0]){//diagonal secundaria
+                printf("\nParabens por ganhar o jogo, %s", ganhador);
+                return 0;
+            }
+        }
+        
         cont++;
     } 
+    if(cont == 9) {
+        printf("\n\nJogo empatado!\n");
+    }
 }
