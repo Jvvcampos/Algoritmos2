@@ -144,7 +144,7 @@ int main() {
             }
         }
 
-        if(cont > 4) {//começa a verificar quem ganhou depois da quarta jogada
+        if(cont >= 5) {//começa a verificar quem ganhou depois da quarta jogada
             if(tabuleiro[0][0] != VAZIO && tabuleiro[0][0] == tabuleiro[0][1] && tabuleiro[0][0] == tabuleiro[0][2]) {//primeira linha
                 printf("\nParabens por ganhar o jogo, %s", ganhador);
                 return 0;
