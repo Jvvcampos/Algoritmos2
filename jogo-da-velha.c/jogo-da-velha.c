@@ -224,11 +224,15 @@ char * leitura_verificacao()
                 return ganhador;
             }
         }
+
         cont++;
+
+        if(cont == 9) {
+            printf("\n\nJogo empatado!\n");
+            return ganhador = 0;
+        }
     } 
-    if(cont == 9) {
-        printf("\n\nJogo empatado!\n");
-    }
+    
 }
 
 int main() 
@@ -236,7 +240,9 @@ int main()
     abertura();
     char *resultado = leitura_verificacao();
 
-    printf("\nParabéns por ganhar o jogo, %s", resultado);
+    if(resultado != 0) {
+        printf("\nParabens por ganhar o jogo, %s", resultado);
+    }
 
     return 0;
 }
