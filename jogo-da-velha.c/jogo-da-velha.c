@@ -234,8 +234,7 @@ char * leitura_verificacao()
 int main() 
 {
     abertura();
-    char resultado = leitura_verificacao();
-    free(resultado);
+    char *resultado = leitura_verificacao();
 
     printf("\nParabéns por ganhar o jogo, %s", resultado);
 
