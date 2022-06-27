@@ -1,17 +1,18 @@
 /*
-Exerc√≠cio. Crie um algoritmo que ordene um vetor com n posi√ß√µes em ordem crescente. 
-Iremos utilizar os m√©todos: Insertion Sort, Selection Sort, BubbleSort, QuickSort e MergeSort.
+ExercÌcio. Crie um algoritmo que ordene um vetor com n posiÁıes em ordem crescente. 
+Iremos utilizar os mÈtodos: Insertion Sort, Selection Sort, BubbleSort, QuickSort e MergeSort.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include <time.h>
 #include <math.h>
 
 int vetor[10000];
 int cont_insertion = 0, cont_selection = 0, cont_bubble = 0, cont_quick = 0;
 
-int ordenacao_insertion(int cont)//Fun√ß√£o Insertion Sort
+int ordenacao_insertion(int cont)//FunÁ„o Insertion Sort
 {
     int aux = 0;
     for(int i=1; i<cont; i++) 
@@ -30,10 +31,10 @@ int ordenacao_insertion(int cont)//Fun√ß√£o Insertion Sort
     return 0;
 }
 
-int ordenacao_selection(int cont)//Fun√ß√£o Selection Sort
+int ordenacao_selection(int cont)//FunÁ„o Selection Sort
 {
     int aux = 0;
-    for(int i = 0; i < cont; i++)//Ordena√ß√£o crescente do vetor
+    for(int i = 0; i < cont; i++)//OrdenaÁ„o crescente do vetor
     {
         for(int j = 0; j < cont; j++)
         {
@@ -48,7 +49,7 @@ int ordenacao_selection(int cont)//Fun√ß√£o Selection Sort
     return 1;
 }
 
-int ordenacao_bubble(int cont)//Fun√ß√£o Bubble Sort
+int ordenacao_bubble(int cont)//FunÁ„o Bubble Sort
 {
     int aux = 0;
     for(int i = cont-1; i >= 1; i--)
@@ -66,7 +67,7 @@ int ordenacao_bubble(int cont)//Fun√ß√£o Bubble Sort
     return 0;
 }
 
-int ordenacao_quick(int vetor[], int ini, int fim)//Fun√ß√£o Quick Sort
+int ordenacao_quick(int vetor[], int ini, int fim)//FunÁ„o Quick Sort
 {
     int pivo = 0, i, j, aux = 0;
     i = ini;
@@ -104,12 +105,13 @@ int ordenacao_quick(int vetor[], int ini, int fim)//Fun√ß√£o Quick Sort
 
 int main()
 {
+    setlocale(LC_ALL, "Portuguese");
     int cont = 0, opcao;
     printf("Preencha o vetor com quantos valores achar suficiente!\n");
 
     while(cont<10000)//Preenchimento do vetor
     {
-        printf("Digite o valor para a posi√ß√£o %d: ", cont);
+        printf("Digite o valor para a posiÁ„o %d: ", cont);
         scanf("%d", &vetor[cont]);
         if(vetor[cont] == 0)//Flag para parada de leitura
         {
@@ -117,12 +119,12 @@ int main()
             break;
         }
         else if(vetor[cont] < 0){
-            printf("Digite um valor positivo!\n");//Exig√™ncia de valores positivos
+            printf("Digite um valor positivo!\n");//ExigÍncia de valores positivos
             cont-=1;
         }
         cont+=1;
     }
-    printf("\nVetor antes da ordena√ß√£o:\n");
+    printf("\nVetor antes da ordenaÁ„o:\n");
     printf("{");
     for(int i = 0; i < cont; i++)
     {
@@ -130,7 +132,7 @@ int main()
     }
     printf("}\n");
     int selecao = 0;
-    printf("Selecione o m√©todo de ordena√ß√£o do vetor!\n1 - Insertion Sort, 2 - Selection Sort, 3 - BubbleSort e 4 - QuickSort\n\n");
+    printf("Selecione o mÈtodo de ordenaÁ„o do vetor!\n1 - Insertion Sort, 2 - Selection Sort, 3 - BubbleSort e 4 - QuickSort\n\n");
 
     while(selecao == 0)
     {

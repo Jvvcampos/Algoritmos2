@@ -29,8 +29,8 @@ int main()
 
 char dados_pessoais(char nomes[])
 {
-    //lÃª o nome do funcionÃ¡rio
-    printf("Digite o nome do funcionÃ¡rio: ");
+    //lê o nome do funcionário
+    printf("Digite o nome do funcionário: ");
     fgets(nomes, 50, stdin);
 }
 
@@ -43,47 +43,47 @@ float salario(float *sal_liquido, float *sal_recebido, float *refeicoes, float *
     int nd;
     int fal;
 
-//lÃª o salÃ¡rio do empregado
-    printf("SalÃ¡rio do empregado: R$");
+//lê o salário do empregado
+    printf("Salário do empregado: R$");
     scanf("%f", &*sal_recebido);
     
-    //lÃª o valor-hora-diurna
+    //lê o valor-hora-diurna
     printf("Valor hora extra diurna: R$");
     scanf("%f", &valor_hed);
     
-    //lÃª o valor-hora-noturna
+    //lê o valor-hora-noturna
     printf("Valor hora extra noturna: R$");
     scanf("%f", &valor_hen);
     
     //quantidade de horas extras diurnas trabalhadas
-    printf("Quantas horas extras diurnas o funcionÃ¡rio trabalhou esse mÃªs? ");
+    printf("Quantas horas extras diurnas o funcionário trabalhou esse mês? ");
     scanf("%f", &hed);
     
     //quantidade de horas extras noturnas trabalhadas
-    printf("Quantas horas extras diurnas o funcionÃ¡rio trabalhou esse mÃªs? ");
+    printf("Quantas horas extras diurnas o funcionário trabalhou esse mês? ");
     scanf("%f", &hen);
     
     //quantidade de dependentes
-    printf("Quantos dependentes o funcionÃ¡rio tem? ");
+    printf("Quantos dependentes o funcionário tem? ");
     scanf("%d", &nd);
     
-    //quantidade de faltas do funcionÃ¡rio
-    printf("Quantas faltas o funcionÃ¡rio tem esse mÃªs? ");
+    //quantidade de faltas do funcionário
+    printf("Quantas faltas o funcionário tem esse mês? ");
     scanf("%d", &fal);
     
     //descontos eventuais  
-    printf("Descontos evetuais no salÃ¡rio: R$");
+    printf("Descontos evetuais no salário: R$");
     scanf("%f", &*idesc_eventuais);
     
-    //gastos com refeiÃ§Ãµes feitas na empresa
-    printf("Quanto o funcionÃ¡rio gastou com refeiÃ§Ã£o esse mÃªs? R$");
+    //gastos com refeições feitas na empresa
+    printf("Quanto o funcionário gastou com refeição esse mês? R$");
     scanf("%f", &*refeicoes);
     
-    //vales retirados durante o mÃªs
-    printf("Quanto de vale deverÃ¡ ser descontado no salÃ¡rio do funcionÃ¡rio? R$");
+    //vales retirados durante o mês
+    printf("Quanto de vale deverá ser descontado no salário do funcionário? R$");
     scanf("%f", &*vales);
 
-    //calcula e aplica valores a variÃ¡veis necessÃ¡rias para cÃ¡lculos
+    //calcula e aplica valores a variáveis necessárias para cálculos
     float hora_extra = hed * *sal_recebido/160 + hen * 1.2 * *sal_recebido/160;
     float sal_familia = nd * 0.05 * SAL_MINIM0;
     float total_horas_extras = (hen * valor_hen) + (hed * valor_hed);
@@ -96,7 +96,7 @@ float salario(float *sal_liquido, float *sal_recebido, float *refeicoes, float *
     float desc_total;
     desc_total = sal_bruto - faltas - *refeicoes - *idesc_eventuais - *vales - inamps - imposto_renda;
 
-    //calcula o salÃ¡rio lÃ­quido
+    //calcula o salário líquido
     *sal_liquido = sal_bruto - desc_total;
 }
 
@@ -105,9 +105,9 @@ void imprime(char inome[], float isal_liquido, float isalario, float iref, float
     //imprime os valores
     printf("\n\n\nDados do colaborador:\n");
     printf("\n\nNome do colaborador: %s", inome);
-    printf("SalÃ¡rio do colaborador: R$%.2f", isalario);
-    printf("\nDescontos em refeiÃ§Ãµes: R$%.2f", iref);
+    printf("Salário do colaborador: R$%.2f", isalario);
+    printf("\nDescontos em refeições: R$%.2f", iref);
     printf("\nDescontos em vales: R$%.2f", idesc_vale);
     printf("\nDescontos eventuais: R$%.2f", idesc_event);
-    printf("\nSalario lÃ­quido: R$%.2f", isal_liquido);
+    printf("\nSalario líquido: R$%.2f", isal_liquido);
 }
