@@ -1,0 +1,5 @@
+!Start
+
+bom dia meu amigo
+
+!Stop
