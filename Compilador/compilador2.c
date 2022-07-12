@@ -8,7 +8,9 @@ Apenas irá verificar comandos básicos como os de declaração de variável, abertur
 #include <locale.h>
 #include <time.h>
 
-void transformar_minusculo(char linha[])
+int linhas_lidas = 0;
+
+void transformar_minusculo(char linha[])//Essa função irá transformar tudo em minúsculo.
 {
     int i = 0;
     while(linha[i]!='\0')
@@ -19,19 +21,52 @@ void transformar_minusculo(char linha[])
     linha[i]='\0';
 }
 
-void tirar_espacos(char linha[])
+void preparar_linha(char linha[])//Essa função irá remover a identação para facilitar a leitura, depois chamará outra função para espaços.
 {
     int i = 0;
-    for(i=0; i<strlen(linha); i++){
-        if(linha[i]==' '){
+    int ident = -1;
+    while(linha[i]==' ')
+    {
+        ident++;
+        i++;
+    }
+    if(ident>=0)
+    {
+        for(i=0; i<strlen(linha); i++)
+        {
+            ident++;
+            linha[i]=linha[ident];
+        }
+    }
+    tirar_espacos(linha);
+}
+
+void tirar_espacos(char linha[])//Essa função removerá espaços duplos no código, acima disso o código irá parar.
+{
+    for(int i=0; i<strlen(linha); i++){
+        if(linha[i]==' ' && linha[i+1]==' ')
+        {
+            if(linha[i+2]==' ')
+            {
+                printf("O código do arquivo está contendo espaços triplos, conserte-os antes de tentar executar o compilador novamente!\n");
+                printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+                exit(0);  
+            }
             linha[i]=linha[i+1];
             int j = i+1;
             for(j = j; j<strlen(linha); j++){
                 linha[j]=linha[j+1];
             }
-        }   
+        }  
     }
-    
+}
+
+void verifica_var(char linha[])
+{
+    if((strncmp(linha[4], "int", 3)==0))
+    {
+        printf("Váriavel de tipo inteiro");
+    }
 }
 
 int main()
@@ -60,11 +95,21 @@ int main()
     while(!feof(fp))
     {
         leitura = fgets(linha, 100, fp);
+        linhas_lidas++;
         transformar_minusculo(linha);
-        printf("Linha %d: %s", i, linha);
-        tirar_espacos(linha);
+        preparar_linha(linha);
         
-        printf("Linha sem espaços %d: %s", i, linha);
+        //printf("Linha sem espaços %d: %s", i, linha);
+
+        if((strncmp(linha, "var", 3)==0))
+        {
+            printf("Comando Var reconhecido!\n");
+            verifica_var(linha);
+        }
+
+        //if((strncmp(leitura, "if(", 3)==0) || (strncmp(leitura, "if (", 4)==0))
+
+
         /*if(strcmp(leitura, "!Start\n") == 0)
         {
             printf("Programa iniciado!\n");
@@ -79,9 +124,10 @@ int main()
         {
             printf("linha vázia\n");
         }*/
-        if(strcmp(leitura, "!stop\n") == 0)
-        {
-            
+        if(strncmp(linha, "!stop", 5) == 0)
+        {   
+          free(fp);
+          free(leitura);  
         }
         i++;
     }

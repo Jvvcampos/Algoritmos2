@@ -1,5 +1,7 @@
-!Start
+      !Start
 
-bom dia meu amigo
+bom  dia  meu  amigo
+
+var int idade;
 
 !Stop
