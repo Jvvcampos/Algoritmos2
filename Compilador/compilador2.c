@@ -63,9 +63,47 @@ void tirar_espacos(char linha[])//Essa função removerá espaços duplos no código,
 
 void verifica_var(char linha[])
 {
-    if((strncmp(linha[4], "int", 3)==0))
+  if(linha[4]=='i' && linha[5]=='n' && linha[6]=='t' && linha[7]==' ')//Váriavel como tipo inteiro
     {
-        printf("Váriavel de tipo inteiro");
+        for(int i = 8; i<strlen(linha)-2; i++)
+        {
+            if(linha[i]=='>' && linha[i+1]=='=' || linha[i]=='<' && linha[i+1]=='=' || linha[i]=='=' && linha[i+1]=='=' || linha[i]=='!' && linha[i+1]=='=')
+            {
+                printf("Uso de operadores lógicos indevido, somente é permitido usar = para atribuir valores");
+                printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+                exit(0);
+            }
+        }
+        if(linha[strlen(linha)-2]!=';')
+        {
+            printf("O comando var está faltando o ';' no final da linha %d!!\n", linhas_lidas);
+            printf("Conserte o erro e tente novamente!\n");
+            printf("Foram lidas %d linhas do arquivo!\n", linhas_lidas);
+            exit(0);
+        }
+    }
+    else if(linha[4]=='f' && linha[5]=='l' && linha[6]=='o' && linha[7]=='a' && linha[8]=='t' && linha[9]==' ')//Váriavel como tipo float
+    {
+        for(int i = 10; i<strlen(linha)-2; i++)
+        {
+            if(linha[i]=='>' && linha[i+1]=='=' || linha[i]=='<' && linha[i+1]=='=' || linha[i]=='=' && linha[i+1]=='=' || linha[i]=='!' && linha[i+1]=='=')
+            {
+                printf("Uso de operadores lógicos indevido, somente é permitido usar = para atribuir valores");
+                printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+                exit(0);
+            }
+        }
+        if(linha[strlen(linha)-2]!=';')
+        {
+            printf("O comando var está faltando o ';' no final da linha %d!!\n", linhas_lidas);
+            printf("Conserte o erro e tente novamente!\n");
+            printf("Foram lidas %d linhas do arquivo!\n", linhas_lidas);
+            exit(0);
+        }
+    }
+    else if(linha[4]=='c' && linha[5]=='h' && linha[6]=='a' && linha[7]=='r' && linha[8]==' ')
+    {
+        printf("Váriavel de tipo string\n");
     }
 }
 
@@ -99,11 +137,10 @@ int main()
         transformar_minusculo(linha);
         preparar_linha(linha);
         
-        //printf("Linha sem espaços %d: %s", i, linha);
+        //printf("Linha sem espaï¿½os %d: %s", i, linha);
 
         if((strncmp(linha, "var", 3)==0))
         {
-            printf("Comando Var reconhecido!\n");
             verifica_var(linha);
         }
 
@@ -122,7 +159,7 @@ int main()
         }
         else if(strcmp(leitura, "\n") == 0)
         {
-            printf("linha vázia\n");
+            printf("linha vï¿½zia\n");
         }*/
         if(strncmp(linha, "!stop", 5) == 0)
         {   
