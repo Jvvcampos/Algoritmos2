@@ -1,10 +1,10 @@
 !Start
 
-bom  dia  meu  amigo
-
 var int idade;
-var int idade==1;
-var float dinheiro;
-var char nome;
 
-!Stop
+func void main(){
+
+var int numero;
+
+}
+!stop
