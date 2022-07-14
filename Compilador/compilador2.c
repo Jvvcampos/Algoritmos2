@@ -283,7 +283,7 @@ int main()
         }
     }
     //Vai verificar se o nome do arquivo contém o .start no nome
-    if(arquivo[ponto_arquivo+1]!='s' && arquivo[ponto_arquivo+2]!='t' && arquivo[ponto_arquivo+3]!='a' && arquivo[ponto_arquivo+4]!='r' && arquivo[ponto_arquivo+5]!='t' && arquivo[ponto_arquivo+6]=='.')
+    if(arquivo[ponto_arquivo+1]!='s' && arquivo[ponto_arquivo+2]!='t' && arquivo[ponto_arquivo+3]!='a' && arquivo[ponto_arquivo+4]!='r' && arquivo[ponto_arquivo+5]!='t' && arquivo[ponto_arquivo+6]==NULL)
     {
         printf("O nome do arquivo está com a extensão fictícia errada, utilize 'nomedoarquivo.start.txt'\n");
         printf("Conserte o erro e tente novamente!\n");
