@@ -9,6 +9,11 @@ Apenas irá verificar comandos básicos como os de declaração de variável, abertur
 #include <time.h>
 
 int linhas_lidas = 0;
+int verificador_start = 0;
+int verificador_stop = 0;
+int verificador_main = 0;
+int verificador_chaves = 0;
+int uso_if = 0;
 
 void transformar_minusculo(char linha[])//Essa função irá transformar tudo em minúsculo.
 {
@@ -63,12 +68,11 @@ void tirar_espacos(char linha[])//Essa função removerá espaços duplos no código,
 
 void verifica_var(char linha[])//função para verificar o comando var
 {
-  if(linha[4]=='i' && linha[5]=='n' && linha[6]=='t' && linha[7]==' ')//Variável como tipo inteiro
+  if(linha[3]==' ' && linha[4]=='i' && linha[5]=='n' && linha[6]=='t' && linha[7]==' ')//Variável como tipo inteiro
     {
-        printf("Váriavel de tipo int\n");
         for(int i = 8; i<strlen(linha)-2; i++)
         {
-            if(linha[i]=='>' && linha[i+1]=='=' || linha[i]=='<' && linha[i+1]=='=' || linha[i]=='=' && linha[i+1]=='=' || linha[i]=='!' && linha[i+1]=='=')
+            if(linha[i]=='>' && linha[i+1]=='=' || linha[i]=='<' && linha[i+1]=='=' || linha[i]=='=' && linha[i+1]=='=' || linha[i]=='!' && linha[i+1]=='=')//Verifica os operadores lógicos
             {
                 printf("Uso de operadores lógicos indevido, somente é permitido usar = para atribuir valores!\n");
                 printf("Conserte o erro e tente novamente!\n");
@@ -76,7 +80,7 @@ void verifica_var(char linha[])//função para verificar o comando var
                 exit(0);
             }
         }
-        if(linha[strlen(linha)-2]!=';')
+        if(linha[strlen(linha)-2]!=';')//Verifica a existência do ; no final
         {
             printf("O comando var está faltando o ';' no final da linha %d!!\n", linhas_lidas);
             printf("Conserte o erro e tente novamente!\n");
@@ -111,7 +115,7 @@ void verifica_var(char linha[])//função para verificar o comando var
         int chave_char=0;
         for(int i = 9; i<strlen(linha)-2; i++)//Esse for vai verificar a presença de [] e a garantia dos operadores lógicos
         {
-            if(linha[i]=='[')
+            if(linha[i]=='[')//Verifica se o char contem os []
             {
                 chave_char+=1;
             }
@@ -126,7 +130,7 @@ void verifica_var(char linha[])//função para verificar o comando var
                 printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
                 exit(0);
             }
-            if(chave_char>=1 || chave_char<0)
+            if(chave_char>=1 || chave_char<0)//Verifica se o char fechou o [] corretamente
             {
                 printf("Erro nos colchetes do tamanho do char na linha %d, foi colocado um colchete de abertura a mais ou um de fechamento!!\n", linhas_lidas);
                 printf("Conserte o erro e tente novamente!\n");
@@ -151,32 +155,147 @@ void verifica_var(char linha[])//função para verificar o comando var
     }
 }
 
+void verifica_write(char linha[])//função que verifica os write's
+{
+    if(linha[strlen(linha)-3]!=')' && linha[strlen(linha)-2]!=';')//Verifica se existe o ) e ; no final
+    {
+        printf("O comando write está faltando o ')' para fechar o parenteses ou o ';' no final da linha %d!!\n", linhas_lidas);
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+}
+
+void verifica_read(char linha[])//função que verifica os read's
+{
+    if(linha[strlen(linha)-3]!=')' && linha[strlen(linha)-2]!=';')
+    {
+        printf("O comando write está faltando o ')' para fechar o parenteses ou o ';' no final da linha %d!!\n", linhas_lidas);
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+}
+
+void verifica_if(char linha[])//função que verifica os if's
+{
+    for(int i = 2; i<strlen(linha)-2; i++)
+    {
+        if(linha[i]==' ' && linha[i+1]=='&' && linha[i+2]==' ' || linha[i]==' ' && linha[i+1]=='|' && linha[i+2]==' ')
+        {
+            printf("O uso dos operadores '&' e '|' no if está incorreto por não serem duplos, use && ou ||!!\n");
+            printf("Conserte o erro e tente novamente!\n");
+            printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+            exit(0);
+        }
+    }
+    if(linha[strlen(linha)-3]!=')' && linha[strlen(linha)-2]!='{')
+    {
+        printf("O comando if está faltando o ')' para fechar o parenteses ou o '{' no final da linha %d para abrir o bloco!!\n", linhas_lidas);
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+    verificador_chaves+=1;
+    uso_if+=1;
+    printf("o if foi pai\n");
+}
+
+void verifica_else(char linha[])//função que verifica os else's
+{
+   if(linha[strlen(linha)]!='\0')
+    {
+        printf("O comando else está com caracteres digitados na mesma linha em que a { foi aberta, pule para a próxima linha antes de continuar!\n");
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+    verificador_chaves+=1;
+    printf("o else foi pai\n"); 
+}
+
+void verifica_elseif(char linha[])//função que verifica os else if's
+{
+    for(int i = 7; i<strlen(linha)-2; i++)
+    {
+        if(linha[i]==' ' && linha[i+1]=='&' && linha[i+2]==' ' || linha[i]==' ' && linha[i+1]=='|' && linha[i+2]==' ')
+        {
+            printf("O uso dos operadores '&' e '|' no else if está incorreto por não serem duplos, use && ou ||!!\n");
+            printf("Conserte o erro e tente novamente!\n");
+            printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+            exit(0);
+        }
+    }
+    if(linha[strlen(linha)-3]!=')' && linha[strlen(linha)-2]!='{')
+    {
+        printf("O comando if está faltando o ')' para fechar o parenteses ou o '{' no final da linha %d para abrir o bloco!!\n", linhas_lidas);
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+    verificador_chaves+=1;
+    printf("o else if foi pai\n");
+}
+
+void verifica_while(char linha[])
+{
+    for(int i = 5; i<strlen(linha)-2; i++)
+    {
+        if(linha[i]==' ' && linha[i+1]=='&' && linha[i+2]==' ' || linha[i]==' ' && linha[i+1]=='|' && linha[i+2]==' ')
+        {
+            printf("O uso dos operadores '&' e '|' no while está incorreto por não serem duplos, use && ou ||!!\n");
+            printf("Conserte o erro e tente novamente!\n");
+            printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+            exit(0);
+        }
+    }
+    if(linha[strlen(linha)-3]!=')' && linha[strlen(linha)-2]!='{')
+    {
+        printf("O comando if está faltando o ')' para fechar o parenteses ou o '{' no final da linha %d para abrir o bloco!!\n", linhas_lidas);
+        printf("Conserte o erro e tente novamente!\n");
+        printf("Foram lidas %d linhas do arquivo!", linhas_lidas);
+        exit(0);       
+    }
+    verificador_chaves+=1;
+    printf("o while foi pai\n");
+}
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
     FILE *fp;
-    char arquivo[20];
+    char arquivo[40];
+    int ponto_arquivo;
     char linha[100];
     char result[100];
     char *leitura;
     int i;
-    int verificador_start = 0;
-    int verificador_stop = 0;
-    int verificador_main = 0;
-    int verificador_chaves = 0;
 
-    //Digitar o nome do arquivo para leitura
-    printf("Digite o nome do arquivo a ser lido pelo compilador: ");
+    printf("Bem vindo ao compilador sintático Start!\n");
+    printf("Digite o nome do arquivo a ser lido pelo compilador: "); //Digitar o nome do arquivo para leitura
     scanf("%s", &arquivo);
+    for(int k = 0; i<strlen(arquivo); k++)
+    {
+        if(arquivo[k]=='.')
+        {
+            ponto_arquivo=k;
+            break;
+        }
+    }
+    //Vai verificar se o nome do arquivo contém o .start no nome
+    if(arquivo[ponto_arquivo+1]!='s' && arquivo[ponto_arquivo+2]!='t' && arquivo[ponto_arquivo+3]!='a' && arquivo[ponto_arquivo+4]!='r' && arquivo[ponto_arquivo+5]!='t' && arquivo[ponto_arquivo+6]=='.')
+    {
+        printf("O nome do arquivo está com a extensão fictícia errada, utilize 'nomedoarquivo.start.txt'\n");
+        printf("Conserte o erro e tente novamente!\n");
+        exit(0);  
+    }
     fp = fopen(arquivo, "rt");
-    //
 
     if(fp == NULL)
     {
         printf("Erro na abertura do arquivo.\n");
         return 0;
     }
-
     while(!feof(fp))
     {
         leitura = fgets(linha, 100, fp);
@@ -195,7 +314,7 @@ int main()
                 exit(0);
             }
         }
-        if(verificador_start==1 && verificador_stop==0)
+        if(verificador_start==1 && verificador_stop==0 && verificador_chaves==0)//Apenas permite a declaração de variáveis enquanto não inicializar a função main
         {
             if((strncmp(linha, "var", 3)==0))
             {
@@ -224,11 +343,37 @@ int main()
                 verificador_chaves+=1;
             }
         }
-        /*if(verificador_chaves==1 && verificador_main==1 && verificador_start==1)
+        if(verificador_chaves==1 && verificador_main==1 && verificador_start==1)//Permite a execução dos demais comandos assim que a main é declarada corretamente
         {
-            if(strncmp(linha, ))
-        }*/
-
+            if((strncmp(linha, "var", 3)==0))
+            {
+                verifica_var(linha);
+            }
+            if((strncmp(linha, "write(", 6)==0) || (strncmp(linha, "write (", 7)==0))
+            {
+                verifica_write(linha);
+            }
+            if((strncmp(linha, "read(", 5)==0) || (strncmp(linha, "read (", 6)==0))
+            {
+                verifica_read(linha);
+            }
+            if((strncmp(linha, "if(", 3)==0) || (strncmp(linha, "if (", 4)==0))
+            {
+                verifica_if(linha);
+            }
+            if((strncmp(linha, "else{", 5)==0) && uso_if==1 || (strncmp(linha, "else {", 6)==0) && uso_if==1)
+            {
+                verifica_else(linha);
+            }
+            if((strncmp(linha, "else if(", 8)==0) && uso_if==1 || (strncmp(linha, "else if (", 9)==0) && uso_if==1)
+            {
+                verifica_elseif(linha);
+            }
+            if((strncmp(linha, "while(", 6)==0) || (strncmp(linha, "while (", 7)==0))
+            {
+                verifica_while(linha);
+            }
+        }
         if(strncmp(linha, "}", 1)==0)//Ajustar o contador de acordo com as chaves de fechamento
         {
             verificador_chaves-=1;
@@ -244,7 +389,7 @@ int main()
                 exit(0);
             }
         }
-        i++;
+        memset(linha, '0', 100);
     }
     fclose(fp);
 
@@ -273,28 +418,10 @@ int main()
         printf("O código estava totalmente correto!\n");
     }
     printf("Foram lidas %d linhas do arquivo!\n", linhas_lidas);
-    free(fp);
-    free(leitura);
+
     return 0;
 }
-
-
-
-
-        //if((strncmp(leitura, "if(", 3)==0) || (strncmp(leitura, "if (", 4)==0))
-
-
-        /*if(strcmp(leitura, "!Start\n") == 0)
-        {
-            printf("Programa iniciado!\n");
-            //fflush(leitura);
-            //printf("Linha %d: %s", i, linha);
-        }
-        if(strcmp(leitura, "!Stop") == 0)
-        {
-            printf("Programa finalizado!\n");
-        }
-        else if(strcmp(leitura, "\n") == 0)
-        {
-            printf("linha vï¿½zia\n");
-        }*/
+/*
+CODADO POR: JOÃO VITOR CAMPOS
+APRESENTADO POR: MARCOS VINICIUS
+*/

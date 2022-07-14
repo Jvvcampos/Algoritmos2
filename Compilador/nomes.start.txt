@@ -1,0 +1,21 @@
+!Start
+    var int idade;
+
+    func void main(){
+        var int numero;
+        write (foda-se);
+        read (a);
+        if (a>b && b>c || c>d){
+            var int numero;
+        }
+        else{
+            var int numero2;
+        }
+        else if(a>b){
+            var int numero3;
+        }
+        while(a>b){
+            
+        }
+    }
+!stop
